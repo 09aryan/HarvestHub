@@ -114,11 +114,134 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget listTile({required IconData icon, required String title}) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 32,
+      ),
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.black45),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 231, 230, 230),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.yellow,
+          child: ListView(children: [
+            DrawerHeader(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.white54,
+                    radius: 43,
+                    child: CircleAvatar(
+                        radius: 40, backgroundColor: Colors.yellow),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(" Welcome Guest"),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Container(
+                        height: 30,
+                        child: OutlinedButton(
+                          onPressed: () {},
+                          child: Text("Login"),
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      side: BorderSide(width: 2)))),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            listTile(
+              icon: Icons.home_outlined,
+              title: "home",
+            ),
+            listTile(
+              icon: Icons.person_outline,
+              title: "My profile",
+            ),
+            listTile(
+              icon: Icons.notifications_outlined,
+              title: "notification",
+            ),
+            listTile(
+              icon: Icons.star_outline,
+              title: "rating & complaint",
+            ),
+            listTile(
+              icon: Icons.favorite_outline,
+              title: "WHISLIST",
+            ),
+            listTile(
+              icon: Icons.copy_outlined,
+              title: "Raise a complaint",
+            ),
+            listTile(
+              icon: Icons.question_answer_outlined,
+              title: "FAQS",
+            ),
+            Container(
+              height: 350,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("contact support"),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Text("call us:"),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("+91 9650845408"),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Text("Mail us"),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("+91 9650845408"),
+                        ],
+                      ),
+                    ),
+                  ]),
+            )
+          ]),
+        ),
+      ),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
