@@ -1,9 +1,39 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:foodapp/screens/home/home_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:ui';
 
-class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+class SignIn extends StatefulWidget {
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  _googleSignUp() async {
+    try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn(
+        scopes: ['email'],
+      );
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      final User? user = (await _auth.signInWithCredential(credential)).user;
+      // print("signed in " + user.displayName);
+
+      return user;
+    } catch (e) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +41,7 @@ class SignIn extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover, image: AssetImage('assets/fd2.jpeg'))),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -41,7 +71,11 @@ class SignIn extends StatelessWidget {
                     SignInButton(
                       Buttons.Google,
                       text: "Sign up with Google Id",
-                      onPressed: () {},
+                      onPressed: () {
+                        _googleSignUp().then((value) => Navigator.of(context)
+                            .pushReplacement(MaterialPageRoute(
+                                builder: (context) => const HomeScreen())));
+                      },
                     ),
                     SignInButton(
                       Buttons.Apple,

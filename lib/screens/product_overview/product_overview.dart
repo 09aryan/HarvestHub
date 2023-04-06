@@ -86,14 +86,14 @@ class _ProductOverViewState extends State<ProductOverView> {
             width: double.infinity,
             child: Column(children: [
               ListTile(
-                title: Text(widget.productName ?? ""),
+                title: Text(widget.productName),
                 subtitle: Text("rs50"),
               ),
               Container(
                 height: 250,
                 padding: EdgeInsets.all(40),
                 child: Image.network(
-                  widget.productImage ?? "",
+                  widget.productImage,
                 ),
               ),
               Container(
