@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/auth/sign_in.dart';
-import 'package:foodapp/screens/home_screen.dart';
+import 'package:foodapp/screens/home/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
