@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:foodapp/providers/product_provider.dart';
 import 'package:foodapp/screens/home/drawer_side.dart';
 import 'package:foodapp/screens/product_overview/product_overview.dart';
+import 'package:provider/provider.dart';
 import './single_product.dart';
-import 'dart:ui';
+//import 'dart:ui';
 import 'package:foodapp/screens/search/search.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late ProductProvider productProvider;
+  //ProductProvider productProvider;
 
   Widget _buildHerbsProduct(context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -20,61 +30,45 @@ class HomeScreen extends StatelessWidget {
       SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              SingleProduct(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
+            children: productProvider.getHerbsProdcutDataList.map(
+              (herbsProductData) {
+                return SingleProduct(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProductOverView(
+                          productPrice: herbsProductData.productPrice,
+                          productImage: herbsProductData.ProductImage,
+                          productName: herbsProductData.productName,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "Fresh basil",
-              ),
-              SingleProduct(
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "fresh",
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
-                      ),
-                    ),
-                  );
-                },
-              ),
-              SingleProduct(
-                  productImage:
-                      'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                  productName: "fresh",
-                  onTap: () {}),
-              SingleProduct(
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "fresh",
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                  productPrice: herbsProductData.productPrice,
+                  productImage: herbsProductData.ProductImage,
+                  productName: herbsProductData.productName,
+                );
+              },
+            ).toList(),
+            // children: [
+            //   SingleProduct(
+            //     onTap: () {
+            //       Navigator.of(context).push(
+            //         MaterialPageRoute(
+            //           builder: (context) => ProductOverView(
+            //             productImage:
+            //                 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
+            //             productName: "fresh basil",
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //     productImage:
+            //         'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
+            //     productName: "Fresh basil",
+            //   ),
+
+            // ],
           )) // children: [
     ]
         // ],
@@ -93,72 +87,26 @@ class HomeScreen extends StatelessWidget {
       SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              SingleProduct(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
+            children: productProvider.getFreshProductDataList.map(
+              (freshProductData) {
+                return SingleProduct(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProductOverView(
+                          productPrice: freshProductData.productPrice,
+                          productImage: freshProductData.ProductImage,
+                          productName: freshProductData.productName,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "Fresh basil",
-              ),
-              SingleProduct(
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "fresh",
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
-                      ),
-                    ),
-                  );
-                },
-              ),
-              SingleProduct(
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "fresh",
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
-                      ),
-                    ),
-                  );
-                },
-              ),
-              SingleProduct(
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "fresh",
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                  productPrice: freshProductData.productPrice,
+                  productImage: freshProductData.ProductImage,
+                  productName: freshProductData.productName,
+                );
+              },
+            ).toList(),
           )) // children: [
     ]
         // ],
@@ -166,91 +114,62 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildroots(context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text('Herbs Seasonings'), Text("view All")],
-        ),
-      ),
-      SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: Row(
-            children: [
-              SingleProduct(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
-                      ),
-                    ),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [Text('Herbs Seasonings'), Text("view All")],
+          ),
+        ),
+        SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: productProvider.getgrainsProductDataList.map(
+                (grainsProductData) {
+                  return SingleProduct(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ProductOverView(
+                            productPrice: grainsProductData.productPrice,
+                            productImage: grainsProductData.ProductImage,
+                            productName: grainsProductData.productName,
+                          ),
+                        ),
+                      );
+                    },
+                    productPrice: grainsProductData.productPrice,
+                    productImage: grainsProductData.ProductImage,
+                    productName: grainsProductData.productName,
                   );
                 },
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "Fresh basil",
-              ),
-              SingleProduct(
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "fresh",
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
-                      ),
-                    ),
-                  );
-                },
-              ),
-              SingleProduct(
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "fresh",
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
-                      ),
-                    ),
-                  );
-                },
-              ),
-              SingleProduct(
-                productImage:
-                    'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                productName: "fresh",
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductOverView(
-                        productImage:
-                            'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-                        productName: "fresh basil",
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          )) // children: [
-    ]
-        // ],
-        );
+              ).toList(),
+            )),
+      ],
+    );
+  }
+
+  @override
+  void initState() {
+    ProductProvider productProvider = Provider.of(context, listen: false);
+    productProvider.fatchHerbsProdcutData();
+    productProvider.fatchgrainsProductData();
+    productProvider.fatchFreshProductData();
+    // productProvider.fatchRootProductData();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    productProvider = Provider.of(context);
+    // ProductProvider productProvider = Provider.of(
+    //   context,
+    // );
+    // productProvider.fatchHerbsProdcutData();
+    //   super.initState();
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 231, 230, 230),
       drawer: DrawerSide(),

@@ -8,7 +8,11 @@ class ProductOverView extends StatefulWidget {
   //const ProductOverView({super.key});
   final String productName;
   final String productImage;
-  ProductOverView({required this.productName, required this.productImage});
+  final int productPrice;
+  ProductOverView(
+      {required this.productName,
+      required this.productImage,
+      required this.productPrice});
 
   @override
   State<ProductOverView> createState() => _ProductOverViewState();
@@ -87,7 +91,7 @@ class _ProductOverViewState extends State<ProductOverView> {
             child: Column(children: [
               ListTile(
                 title: Text(widget.productName),
-                subtitle: Text("rs50"),
+                subtitle: Text("\$$widget.productPrice"),
               ),
               Container(
                 height: 250,

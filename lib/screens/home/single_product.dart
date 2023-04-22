@@ -1,15 +1,17 @@
 //import 'dart:ffi';
-import 'dart:ui';
+//import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class SingleProduct extends StatelessWidget {
   final String productImage;
   final String productName;
+  final int productPrice;
   final VoidCallback onTap;
   SingleProduct(
       {required this.productImage,
       required this.productName,
-      required this.onTap});
+      required this.onTap,
+      required this.productPrice});
 
   //const SingleProduct({super.key});
 
@@ -56,7 +58,7 @@ class SingleProduct extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '50.RS / 50 GRAMS',
+                            '$productPrice / 50 GRAMS',
                             style: TextStyle(
                               color: Colors.grey,
                               // fontWeight: FontWeight.bold

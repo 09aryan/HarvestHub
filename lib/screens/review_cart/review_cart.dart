@@ -9,6 +9,24 @@ class ReviewCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: ListTile(
+        title: Text("Total Amount"),
+        subtitle: Text(
+          "\$170.00",
+          style: TextStyle(
+            color: Colors.green[900],
+          ),
+        ),
+        trailing: Container(
+          width: 160,
+          child: MaterialButton(
+            child: Text("Submit"),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            onPressed: () {},
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.yellow,
         title: Text(
@@ -21,10 +39,18 @@ class ReviewCart extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          SingleItem(),
-          SingleItem(),
-          SingleItem(),
-          SingleItem(),
+          SingleItem(
+            isBool: true,
+          ),
+          SingleItem(
+            isBool: true,
+          ),
+          SingleItem(
+            isBool: true,
+          ),
+          SingleItem(
+            isBool: true,
+          ),
           SizedBox(
             height: 10,
           )
