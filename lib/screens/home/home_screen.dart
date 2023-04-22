@@ -3,6 +3,7 @@ import 'package:foodapp/screens/home/drawer_side.dart';
 import 'package:foodapp/screens/product_overview/product_overview.dart';
 import './single_product.dart';
 import 'dart:ui';
+import 'package:foodapp/screens/search/search.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -263,10 +264,16 @@ class HomeScreen extends StatelessWidget {
           CircleAvatar(
             radius: 12,
             backgroundColor: Color(0xffd4d181),
-            child: Icon(
-              Icons.search,
-              size: 18,
-              color: Colors.black,
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Search()));
+              },
+              icon: Icon(
+                Icons.search,
+                size: 18,
+                color: Colors.black,
+              ),
             ),
           ),
           Padding(

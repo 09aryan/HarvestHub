@@ -9,6 +9,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:foodapp/auth/sign_in.dart';
 import 'package:foodapp/screens/home/home_screen.dart';
 import 'package:foodapp/screens/my_profile/my_profile.dart';
+import 'package:foodapp/screens/review_cart/review_cart.dart';
 
 class DrawerSide extends StatelessWidget {
   //const DrawerSide({super.key});
@@ -107,10 +108,10 @@ class DrawerSide extends StatelessWidget {
               }),
           listTile(
               icon: Icons.favorite_outline,
-              title: "WHISLIST",
+              title: "Review Cart",
               onTab1: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => myProfile()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ReviewCart()));
               }),
           listTile(
               icon: Icons.copy_outlined,
