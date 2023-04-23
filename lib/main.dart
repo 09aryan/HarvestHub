@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:foodapp/auth/sign_in.dart';
 import 'package:foodapp/providers/product_provider.dart';
+import 'package:foodapp/providers/user_provider.dart';
 import 'package:foodapp/screens/home/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 //import 'dart:ui';
@@ -22,8 +23,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ProductProvider>(
-      create: (context) => ProductProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ProductProvider>(
+          create: (context) => ProductProvider(),
+        ),
+        ChangeNotifierProvider<UserProvider>(
+            create: (context) => UserProvider()),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

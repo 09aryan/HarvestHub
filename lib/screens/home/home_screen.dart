@@ -24,7 +24,24 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text('Herbs Seasonings'), Text("view All")],
+          children: [
+            Text('Herbs Seasonings'),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Search(
+                      search: productProvider.getHerbsProdcutDataList,
+                    ),
+                  ),
+                );
+              },
+              child: Text(
+                'view all',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ],
         ),
       ),
       SingleChildScrollView(
@@ -81,7 +98,24 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text('Herbs Seasonings'), Text("view All")],
+          children: [
+            Text('Herbs Seasonings'),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Search(
+                      search: productProvider.getFreshProductDataList,
+                    ),
+                  ),
+                );
+              },
+              child: Text(
+                'view all',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ],
         ),
       ),
       SingleChildScrollView(
@@ -121,7 +155,24 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text('Herbs Seasonings'), Text("view All")],
+            children: [
+              Text('Herbs Seasonings'),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Search(
+                        search: productProvider.getgrainsProductDataList,
+                      ),
+                    ),
+                  );
+                },
+                child: Text(
+                  'view all',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            ],
           ),
         ),
         SingleChildScrollView(
@@ -185,8 +236,10 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Color(0xffd4d181),
             child: IconButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Search()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Search(
+                          search: productProvider.gerAllProductSearch,
+                        )));
               },
               icon: Icon(
                 Icons.search,

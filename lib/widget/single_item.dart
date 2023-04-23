@@ -4,7 +4,14 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class SingleItem extends StatelessWidget {
   bool isBool = false;
-  SingleItem({required this.isBool});
+  String productImage;
+  String productName;
+  int productprice;
+  SingleItem(
+      {required this.isBool,
+      required this.productImage,
+      required this.productName,
+      required this.productprice});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +30,7 @@ class SingleItem extends StatelessWidget {
                 child: Container(
                   height: 100,
                   child: Center(
-                    child: Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ9XFyB4gq9JAh-ZdSdGBvyDvHr7sNzkKpkxQGlylpxFN0h1Z4msjv87LCDHzaPWPmT2Q&usqp=CAU"),
+                    child: Image.network(productImage),
                   ),
                 ),
               ),
@@ -41,13 +47,13 @@ class SingleItem extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              "ProductName",
+                              productName,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "50RS",
+                              productprice.toString(),
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),

@@ -6,16 +6,27 @@ import '../models/product_model.dart';
 class ProductProvider with ChangeNotifier {
   List<ProductModel> herbsProdcutList = [];
   late ProductModel productModel;
+  List<ProductModel> search = [];
+  productModels(QueryDocumentSnapshot element) {
+    productModel = ProductModel(
+      ProductImage: element.get("productImage"),
+      productName: element.get("productName"),
+      productPrice: element.get("productPrice"),
+    );
+    search.add(productModel);
+  }
+
   fatchHerbsProdcutData() async {
     List<ProductModel> newList = [];
     QuerySnapshot value =
         await FirebaseFirestore.instance.collection("herbsProduct").get();
     value.docs.forEach((element) {
-      productModel = ProductModel(
-        ProductImage: element.get("productImage"),
-        productName: element.get("productName"),
-        productPrice: element.get("productPrice"),
-      );
+      // productModel = ProductModel(
+      //   ProductImage: element.get("productImage"),
+      //   productName: element.get("productName"),
+      //   productPrice: element.get("productPrice"),
+      // );
+      productModels(element);
       newList.add(productModel);
     });
     herbsProdcutList = newList;
@@ -37,11 +48,11 @@ class ProductProvider with ChangeNotifier {
         await FirebaseFirestore.instance.collection("fruitsProduct").get();
 
     value.docs.forEach((element) {
-      productModel = ProductModel(
-        ProductImage: element.get("productImage"),
-        productName: element.get("productName"),
-        productPrice: element.get("productPrice"),
-      );
+      // productModel = ProductModel(
+      //   ProductImage: element.get("productImage"),
+      //   productName: element.get("productName"),
+      //   productPrice: element.get("productPrice"),
+      productModels(element);
       newList.add(productModel);
     });
     freshProductList = newList;
@@ -63,11 +74,7 @@ class ProductProvider with ChangeNotifier {
         await FirebaseFirestore.instance.collection("grainsProduct").get();
 
     value.docs.forEach((element) {
-      productModel = ProductModel(
-        ProductImage: element.get("productImage"),
-        productName: element.get("productName"),
-        productPrice: element.get("productPrice"),
-      );
+      productModels(element);
       newList.add(productModel);
     });
     grainsProductList = newList;
@@ -76,5 +83,9 @@ class ProductProvider with ChangeNotifier {
 
   List<ProductModel> get getgrainsProductDataList {
     return grainsProductList;
+  }
+
+  List<ProductModel> get gerAllProductSearch {
+    return search;
   }
 }
