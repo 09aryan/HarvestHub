@@ -1,21 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import 'package:foodapp/models/product_model.dart';
 import 'package:foodapp/widget/single_item.dart';
 
-class Search extends StatelessWidget {
-  const Search({super.key});
+class Search extends StatefulWidget {
+  List<ProductModel> search;
+  Search({required this.search});
+
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
+  //const Search({super.key});
+  String query = "";
+
+  List<ProductModel> searchItem(String query) {
+    List<ProductModel> searchFood = widget.search.where((element) {
+      return element.productName.toLowerCase().contains(query);
+    }).toList();
+    return searchFood;
+  }
 
   @override
   Widget build(BuildContext context) {
+    List<ProductModel> _searchItem = searchItem(query);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
-        title: Text("Search"),
+        title: Text('Search'),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.menu_rounded),
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.sort),
+            ),
           ),
         ],
       ),
@@ -28,6 +47,11 @@ class Search extends StatelessWidget {
             height: 52,
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  query = value;
+                });
+              },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -35,7 +59,7 @@ class Search extends StatelessWidget {
                 ),
                 fillColor: Color(0xffc2c2c2),
                 filled: true,
-                hintText: "search For items in the store",
+                hintText: "Search for items in the store",
                 suffixIcon: Icon(Icons.search),
               ),
             ),
@@ -43,24 +67,16 @@ class Search extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          SingleItem(
-            isBool: false,
-          ),
-          SingleItem(
-            isBool: false,
-          ),
-          SingleItem(
-            isBool: false,
-          ),
-          SingleItem(
-            isBool: false,
-          ),
-          SingleItem(
-            isBool: false,
-          ),
-          SingleItem(
-            isBool: false,
-          ),
+          Column(
+            children: _searchItem.map((data) {
+              return SingleItem(
+                isBool: false,
+                productName: data.productName,
+                productImage: data.ProductImage,
+                productprice: data.productPrice,
+              );
+            }).toList(),
+          )
         ],
       ),
     );
